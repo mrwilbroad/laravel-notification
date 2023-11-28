@@ -12,6 +12,12 @@
                     {{ __("You're logged in!") }}
                 </div>
 
+                <section>
+                      <h5>
+                          <a href={{ "/send-mail" }} class="text-info text-decoration-none" href="">Send Email Now</a>
+                      </h5>
+                </section>
+
 
                 @if(Session::has("success"))
                  <section class="alert alert-success dismissible fade show col-lg-6">

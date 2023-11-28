@@ -11,9 +11,6 @@ class HomeController extends Controller
 
     public function index(Request $request)
     {
-        $user = $request->user();
-        // dd($user);
-
         return view("dashboard");
     }
 
