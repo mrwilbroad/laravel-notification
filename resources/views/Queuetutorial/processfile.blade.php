@@ -6,10 +6,15 @@
     </x-slot>
 
     <div class="container mt-4">
-
+        
         @if(Session::has("success"))
           <section class="alert alert-success alert-dismissible fade show">
             {{ Session::get("success") }}
+          </section>
+        @endif
+        @if(Session::has("UploadError"))
+          <section class="alert alert-danger alert-dismissible fade show">
+            {{ Session::get("UploadError") }}
           </section>
         @endif
            <h4>Processfile</h4>

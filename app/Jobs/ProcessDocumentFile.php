@@ -20,12 +20,10 @@ class ProcessDocumentFile implements ShouldQueue,ShouldBeEncrypted
      * Create a new job instance.
      */
     public function __construct(
-        public $file,
+        public $fileContent,
         public $filename,
         public $user_id
     ) {
-        $this->file = base64_decode($file);
-        $this->filename = base64_decode($filename);
     }
 
     /**
@@ -33,15 +31,12 @@ class ProcessDocumentFile implements ShouldQueue,ShouldBeEncrypted
      */
     public function handle(): void
     {
-
-        Storage::disk("s3")->putFileAs(
-            "laravel-notification",
-            $this->file,
-            $this->filename
-        );
+        
+        $fullpath = "laravel-notification/".$this->filename;
+        Storage::disk("s3")->put($fullpath, $this->fileContent);
         Processfile::create([
             "filename"  => $this->filename,
-            "path" => "laravel-notification/" . $this->filename,
+            "path" => $fullpath,
             "user_id" => $this->user_id
         ]);
     }
