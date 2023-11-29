@@ -42,9 +42,11 @@ class ProjectFileController extends Controller
             Bus::chain([
                 new ProcessDocumentFile($fileContent,$filename,$user_id),
                 new CreateNewUser($request->user())
-            ])->dispatch();
+            ])
+            ->onQueue("Fileprocessing")
+            ->dispatch();
             
-            return back()->with("success","File is updloaded succesfull");
+            return back()->with("success","We're processing ...");
 
         } catch (\Throwable $th) {
             report($th);

@@ -54,7 +54,7 @@ Then in Handle Method of the Job Class
 ```
 
 
-sometimes you may wish to run Jobs in Chain , where after completion of one Job , the 2nd Job will start immediately ,
+sometimes you may wish to run Jobs in Chain , where after completion of one Job , the 2nd Job will start immediately
   - Let say you want to send notification to user who post file to your application
   - This is just miner example , we don't go deep to send it via mail 
   - inside controller
@@ -62,9 +62,10 @@ sometimes you may wish to run Jobs in Chain , where after completion of one Job 
  Bus::chain([
                 new ProcessDocumentFile($fileContent,$filename,$user_id),
                 new CreateNewUser($request->user())
-            ])->dispatch();
+            ])
+              ->onQueue("Fileprocessing") //instead of default Queue(default), let use another queue name
+            ->dispatch();
 ```
-
 
 it's done , Thanks for reading
 # Regard mrwilbroad

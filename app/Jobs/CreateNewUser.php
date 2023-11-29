@@ -21,6 +21,9 @@ class CreateNewUser
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
 
+
+    public $tries = 3;
+
     public User $user;
     /**
      * Create a new job instance.
@@ -35,10 +38,15 @@ class CreateNewUser
      */
     public function handle(): void
     {
-      UserNotificationMessage::create([
-        "user_id" => $this->user->id,
-        "message" => fake()->text()
-      ]);
+      try {
+        UserNotificationMessage::create([
+            "user_id" => $this->user->id,
+            "message" => fake()->text()
+          ]);
+      } catch (\Throwable $th) {
+           report("SOMETHING HAPPEN BAD");
+           $this->fail($th);
+      }
     }
 
 
