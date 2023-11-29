@@ -54,5 +54,17 @@ Then in Handle Method of the Job Class
 ```
 
 
+sometimes you may wish to run Jobs in Chain , where after completion of one Job , the 2nd Job will start immediately ,
+  - Let say you want to send notification to user who post file to your application
+  - This is just miner example , we don't go deep to send it via mail 
+  - inside controller
+```php
+ Bus::chain([
+                new ProcessDocumentFile($fileContent,$filename,$user_id),
+                new CreateNewUser($request->user())
+            ])->dispatch();
+```
+
+
 it's done , Thanks for reading
 # Regard mrwilbroad

@@ -54,8 +54,8 @@ class ProcessDocumentFile implements ShouldQueue, ShouldBeEncrypted
         return [
             (new WithoutOverlapping($this->user_id))
                 ->shared()
-                ->expireAfter(180),
-            ThrottlesExceptions(3, 5)
+                ->releaseAfter(60),
+            new ThrottlesExceptions(10, 5)
         ];
     }
 
@@ -65,6 +65,6 @@ class ProcessDocumentFile implements ShouldQueue, ShouldBeEncrypted
      */
     public function retryUntil(): DateTime
     {
-        return now()->addMinutes(2);
+        return now()->addMinutes(1);
     }
 }

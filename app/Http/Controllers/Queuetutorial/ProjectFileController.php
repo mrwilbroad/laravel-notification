@@ -6,7 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Jobs\ProcessDocumentFile;
 use Illuminate\Support\Str;
-
+use App\Jobs\CreateNewUser;
+use Illuminate\Support\Facades\Bus;
 
 class ProjectFileController extends Controller
 {
@@ -15,6 +16,7 @@ class ProjectFileController extends Controller
     public function index()
     {
         // dd("dd");
+       
         return view("Queuetutorial/processfile");
     }
 
@@ -34,11 +36,18 @@ class ProjectFileController extends Controller
             $filename = Str::replaceLast(".".$exte,"",$filename);
             $filename = $filename."-".date("Y-m-d-h-s").".".$exte;
             $fileContent = file_get_contents($filepath);
-            ProcessDocumentFile::dispatch($fileContent,$filename,$user_id);
+            // ProcessDocumentFile::dispatch($fileContent,$filename,$user_id);
+
+            // // in Chaining if you have many Job List
+            Bus::chain([
+                new ProcessDocumentFile($fileContent,$filename,$user_id),
+                new CreateNewUser($request->user())
+            ])->dispatch();
+            
             return back()->with("success","File is updloaded succesfull");
 
         } catch (\Throwable $th) {
-           
+            report($th);
             return back()->with("UploadError","File upload failed , try again!");
         }
 
