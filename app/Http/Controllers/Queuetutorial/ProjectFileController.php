@@ -43,7 +43,7 @@ class ProjectFileController extends Controller
                 new ProcessDocumentFile($fileContent,$filename,$user_id),
                 new CreateNewUser($request->user())
             ])
-            ->onQueue("Fileprocessing")
+            ->onQueue("low")
             ->dispatch();
             
             return back()->with("success","We're processing ...");

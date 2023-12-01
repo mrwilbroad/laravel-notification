@@ -39,6 +39,7 @@ class ProcessDocumentFile implements ShouldQueue, ShouldBeEncrypted
     public function handle(): void
     {
 
+        try {
         $fullpath = "laravel-notification/" . $this->filename;
         Storage::disk("s3")->put($fullpath, $this->fileContent);
         Processfile::create([
@@ -46,6 +47,9 @@ class ProcessDocumentFile implements ShouldQueue, ShouldBeEncrypted
             "path" => $fullpath,
             "user_id" => $this->user_id
         ]);
+        } catch (\Throwable $th) {
+            $this->fail($th);
+        }
     }
 
 

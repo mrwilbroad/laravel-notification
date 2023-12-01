@@ -67,5 +67,9 @@ sometimes you may wish to run Jobs in Chain , where after completion of one Job 
             ->dispatch();
 ```
 
+
+I was successfull be able to Upload <strong>JWT Handbook</strong> 
+[see here and be able to download ](https://mrwilbroad-bucket.s3.amazonaws.com/laravel-notification/jwt-handbook-v0_14_1-2023-12-01-11-43.pdf)
+
 it's done , Thanks for reading
 # Regard mrwilbroad
