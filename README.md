@@ -75,14 +75,15 @@ I was successfull be able to Upload <strong>JWT Handbook</strong>
 
 ```php
 Bus::chain([
-                new ProcessDocumentFile($fileContent,$filename,$user_id),
-                new CreateNewUser($request->user()),
-                new NotificationDocumentConfirmation($request->user())
-            ])
-            ->onQueue("low")
-            ->dispatch(); 
+        new ProcessDocumentFile($fileContent,$filename,$user_id),
+        new CreateNewUser($request->user()),
+        new NotificationDocumentConfirmation($request->user())
+    ])
+    ->onQueue("low")
+    ->dispatch(); 
 ```
-from terminal this is how are processed 
+
+## From terminal this is how are processed 
 [terminal](https://github.com/mrwilbroad/quality-images/blob/main/Screenshot%20from%202023-12-02%2014-04-52.png)
 
 it's done , Thanks for reading
