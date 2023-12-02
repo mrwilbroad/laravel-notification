@@ -7,7 +7,11 @@ use Illuminate\Http\Request;
 use App\Jobs\ProcessDocumentFile;
 use Illuminate\Support\Str;
 use App\Jobs\CreateNewUser;
+use App\Jobs\NotificationDocumentConfirmation;
+use App\Mail\Document\DocumentNotificationMail;
 use Illuminate\Support\Facades\Bus;
+use Illuminate\Support\Facades\Mail;
+
 
 class ProjectFileController extends Controller
 {
@@ -23,11 +27,11 @@ class ProjectFileController extends Controller
 
     public function store(Request $request)
     {
+        
         try {
             $request->validate([
                 "processfile" => ['required','file',"mimes:pdf","max:949087"]
             ]);
-    
             $file = $request->file("processfile");
             $filepath = $file->getRealPath();
             $exte = $file->getClientOriginalExtension();
@@ -41,16 +45,20 @@ class ProjectFileController extends Controller
             // // in Chaining if you have many Job List
             Bus::chain([
                 new ProcessDocumentFile($fileContent,$filename,$user_id),
-                new CreateNewUser($request->user())
+                new CreateNewUser($request->user()),
+                new NotificationDocumentConfirmation($request->user())
             ])
             ->onQueue("low")
-            ->dispatch();
+            ->dispatch();  
+
+
+            
             
             return back()->with("success","We're processing ...");
 
         } catch (\Throwable $th) {
             report($th);
-            return back()->with("UploadError","File upload failed , try again!");
+            return back()->with("UploadError","File upload failed , try again! ".$th->getMessage());
         }
 
     }

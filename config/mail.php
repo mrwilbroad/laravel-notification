@@ -102,12 +102,12 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'mrwilbroad@gmail.com'),
-        'name' => env('MAIL_FROM_NAME', 'mrwilbroad'),
+        'address' => env('MAIL_FROM_ADDRESS', 'mrwilbroadhelpdesk@gmail.com'),
+        'name' => env('MAIL_FROM_NAME', 'mrwilbroadhelpdesk'),
     ],
     'reply_to' => [
         "address" => "TanzanireplyTo@org.com",
-        "name" => "TAnzaniaBody"
+        "name" => "mrwilbroad help desk"
     ],
 
     /*

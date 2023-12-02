@@ -24,6 +24,12 @@
                     <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
                         {{ $header }}
                     </div>
+
+                      <section class="p-2 d-flex ">
+                        <a class="p-2 text-decoration-nonde" href="{{ url("process-file")}}">
+                            process-file
+                          </a>
+                      </section>
                 </header>
             @endif
 

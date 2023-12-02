@@ -16,13 +16,13 @@ use Illuminate\Queue\Middleware\ThrottlesExceptions;
 use Illuminate\Queue\Middleware\WithoutOverlapping;
 use PhpParser\Node\Expr\Cast\Array_;
 
-class CreateNewUser
+class CreateNewUser implements ShouldQueue, ShouldBeEncrypted
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
 
 
-    public $tries = 3;
+    // public $tries = 3;
 
     public User $user;
     /**
@@ -44,7 +44,6 @@ class CreateNewUser
             "message" => fake()->text()
           ]);
       } catch (\Throwable $th) {
-           report("SOMETHING HAPPEN BAD");
            $this->fail($th);
       }
     }
@@ -63,7 +62,7 @@ class CreateNewUser
 
     public function retryUntil(): DateTime
     {
-        return now()->addMinute(1);
+        return now()->addMinute(2);
     }
 
 }
