@@ -31,7 +31,7 @@ class NotificationDocumentConfirmation implements ShouldQueue
     {
         try {
             Mail::to($this->user)
-                ->send(new DocumentNotificationMail());
+                ->send(new DocumentNotificationMail($this->user));
         } catch (\Throwable $th) {
             $this->fail(($th));
         }

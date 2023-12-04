@@ -85,5 +85,7 @@ Bus::chain([
 
 ## From terminal this is how Bus Jobs  are processed in chain with Queue named == low 
 <img src="https://github.com/mrwilbroad/quality-images/blob/main/Screenshot%20from%202023-12-02%2014-04-52.png" />
+
+
 it's done , Thanks for reading
 # Regard mrwilbroad

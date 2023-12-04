@@ -30,7 +30,7 @@ class ProjectFileController extends Controller
         
         try {
             $request->validate([
-                "processfile" => ['required','file',"mimes:pdf","max:949087"]
+                "processfile" => ['required','file',"mimes:pdf,csv,docx,json","max:949087"]
             ]);
             $file = $request->file("processfile");
             $filepath = $file->getRealPath();

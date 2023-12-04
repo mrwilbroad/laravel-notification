@@ -15,10 +15,15 @@ use App\Jobs\Middleware\JobRateLimiterMiddleware;
 use DateTime;
 use Illuminate\Queue\Middleware\ThrottlesExceptions;
 use Illuminate\Queue\Middleware\WithoutOverlapping;
+use Illuminate\Bus\Batchable;
+
 
 class ProcessDocumentFile implements ShouldQueue, ShouldBeEncrypted
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+
+    // for issue of batch
+    use Batchable;
 
 
     public $tries = 2;

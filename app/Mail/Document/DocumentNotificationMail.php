@@ -21,7 +21,7 @@ class DocumentNotificationMail extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct()
+    public function __construct(public User $user)
     {
         // $this->afterCommit();
     }
@@ -44,7 +44,7 @@ class DocumentNotificationMail extends Mailable
         return new Content(
             view: 'emails.documentnotification',
             with : [
-                "username" => "USERMAID"
+                "username" => $this->user->name
             ]
         );
     }
